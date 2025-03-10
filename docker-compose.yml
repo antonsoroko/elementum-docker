@@ -10,7 +10,12 @@ services:
         ELEMENTUM_ARCH: ${ELEMENTUM_ARCH}
     environment:
       - "TZ=${TZ}"
+    # Preferred network driver
     network_mode: "host"
+    # If you can't use "host" driver then uncomment this and other LOCAL_PORT lines:
+    #network_mode: "bridge"
+    #ports:
+    #  - "${LOCAL_PORT}:${LOCAL_PORT}"
     volumes:
       - ${ELEMENTUM_DOWNLOADS}:/home/ubuntu/elementum_downloads/
       - ${ELEMENTUM_DATA}:/home/ubuntu/elementum_data/
@@ -24,4 +29,6 @@ services:
       #- -outgoingInterfaces=${LIBTORRENT_OUTGOING_INTERFACES}
       #- -localLogin=${ELEMENTUM_LOGIN}
       #- -localPassword=${ELEMENTUM_PASSWORD}
+      # For Windows and maybe macOS uncomment:
+      #- -serverExternalIp=${SERVER_EXTERNAL_IP}
     restart: unless-stopped
